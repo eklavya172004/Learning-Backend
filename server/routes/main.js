@@ -194,6 +194,7 @@ router.get('/updatepassword',(req,res) => {
     res.render('updatepassword');
 })
 
-router.post('/updatepassword',auth.protect,auth.updatepassword);
+router.post('/updatepassword', auth.protect, auth.updatepassword); // Handle POST request
+router.patch('/updatepassword', auth.protect, auth.updatepassword); // Handle PATCH request
 
 module.exports = router;

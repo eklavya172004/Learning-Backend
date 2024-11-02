@@ -3,6 +3,7 @@ const sendmail = require('../server/models/email');
 const User = require('../server/models/user');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const {promisify} = require('util');
 
 const signToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN});
@@ -40,35 +41,50 @@ exports.login = async (req, res, next) => {
         const {email, password} = req.body;
 
         if(!email ||!password) {
-            return res.status(400).json({
-                status: 'fail',
+            // return res.status(400).json({
+            //     status: 'fail',
+            //     message: 'Please provide email and password'
+            // })
+            const locals = {
+                title: "Login",
                 message: 'Please provide email and password'
-            })
+            }
+            res.render('login', {locals})
         }
             //check if user and password is correct
             const user = await User.findOne({email}).select('+password');
 
             if(!user || !(await user.checkPassword(password,user.password)) ){
-                return res.status(401).json({
-                    status: 'fail',
+                // return res.status(401).json({
+                //     status: 'fail',
+                //     message: 'Invalid email or password'
+                // })
+                const locals = {
+                    title: "Login",
                     message: 'Invalid email or password'
-                })
+                }
+                res.render('login', {locals})
             }
             
             //generate token
             const token = signToken(user._id);
 
             //setting the session
-            req.session.user = {_id: user._id , role: user.role};
+            req.session.user = {id: user._id , role: user.role};
 
             res.redirect('/blog');
         }
 
      catch (error) {
-        res.status(500).json({
-            status: 'error',
+        // res.status(500).json({
+        //     status: 'error',
+        //     message: 'An error occurred during login'
+        // });
+        const locals = {
+            title: "Login",
             message: 'An error occurred during login'
-        });
+        }
+        res.render('login', {locals})
     }
 }
 
@@ -76,14 +92,31 @@ exports.logout = (req, res, next) => {
     // Destroy the session
     req.session.destroy(err => {
         if (err) {
-            return res.status(500).json({
-                status: 'error',
-                message: 'Could not log out. Please try again.',
-            });
+            // return res.status(500).json({
+            //     status: 'error',
+            //     message: 'Could not log out. Please try again.',
+            // });
+            const locals = {
+                title: "Logout",
+                message: 'Could not log out. Please try again.'
+            }
+            res.render('login', {locals})
         }
         res.redirect('/'); // Redirect to home page or login page
     });
 };
+
+// exports.restrictTo = (...roles) => {
+//     return (req,res,next) => {
+        
+//         // roles = ['user','guide'] , ['lead-guide','admin']
+
+//         if(!roles.includes(req.user.role)){
+//             return next(new AppError('You do not have permission to access this',403));
+//         }
+//         next();
+//     }
+// }
 
 exports.protect = async(req,res,next) => {
     if(!req.session.user) {
@@ -189,17 +222,78 @@ exports.resetPassword = async(req,res,next) => {
 
 }
 
+
+// exports.isExist = async (req, res, next) => {
+//     try {
+//         // 1. Getting the token and check if it still exists
+//         let token;
+
+//         if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+//             token = req.headers.authorization.split(' ')[1];
+//         }
+
+//         // 2. Check if token exists
+//         if (!token) {
+//             return res.status(401).json({
+//                 status: 'fail',
+//                 message: 'You are not logged in to get the access.',
+//             });
+//         }
+
+//         // 3. Verify the token
+//         const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+//         // 4. Check if user still exists or if the user is deleted
+//         const freshUser = await User.findById(decoded.id);
+//         if (!freshUser) {
+//             return res.status(401).json({
+//                 status: 'fail',
+//                 message: 'The user doesn\'t exist any longer',
+//             });
+//         }
+
+//         // 5. Check if user changed password after that token
+//         if (freshUser.changedPassword(decoded.iat)) {
+//             return res.status(401).json({
+//                 status: 'fail',
+//                 message: 'The user changed password! Please login again',
+//             });
+//         }
+
+//         // Grant access to protected route
+//         req.user = freshUser;
+
+//         next();
+//     } catch (error) {
+//         return res.status(500).json({
+//             status: 'error',
+//             message: 'An error occurred while verifying the user.',
+//         });
+//     }
+// };
+
 exports.updatepassword = async(req,res,next) => {
     try {
         const user = await User.findById(req.session.user.id).select('+password');
+        console.log(req.session.user.id);
 
         if(!user || !(await user.checkPassword(req.body.Currentpassword,user.password))) {
             
+         console.log(req.body.Currentpassword,user.password);   
             const locals = {
                 message:'Current password is incorrect'
             }
 
-            return res.render('login', locals);
+            console.log(locals.message);
+            return res.render('login', {locals: locals});
+        }
+
+         // Check if new password and confirmation match
+         if (req.body.password !== req.body.passwordConfirmation) {
+            const locals = {
+                message: 'New password and confirmation do not match'
+            };
+            return res.render('updatepassword',{locals: locals});
         }
 
         user.password = req.body.password;
@@ -222,6 +316,6 @@ exports.updatepassword = async(req,res,next) => {
         const locals = {
             message: 'some error ocurred internally'
         };
-        return res.render('login', { locals });
+        return res.render('login', { locals:locals });
         }   
 }

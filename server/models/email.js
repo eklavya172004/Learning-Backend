@@ -3,12 +3,12 @@ require('dotenv').config();
 
 const sendmail = async options => {
     const transporter = nodemailer.createTransport({
-        host: 'smtp.mailgun.org',
-        port: 587,
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
         secure: false, 
         auth: {
-              user: 'postmaster@sandbox06fb72a9864c4f04900a31593ac7acfd.mailgun.org',
-             pass: '7c92b4aa4ad67fc9c0051d41f030fc87-72e4a3d5-f15f5ad6'
+              user: process.env.EMAIL_USER,
+              pass: process.env.EMAIL_PASSWORD
         },
     })
 

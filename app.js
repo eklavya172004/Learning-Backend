@@ -5,11 +5,13 @@ const expressLayout = require('express-ejs-layouts');
 const path = require('path');
 const connectDB = require('./server/config/database');
 const session = require('express-session');
+const methodOverride = require('method-override');
 // const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 // const bcrypt = require('bcryptjs');
 
 const app = express();
+
 
 const port = 5000 || process.env.PORT 
 
@@ -22,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json()); // For parsing application/json
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
+app.use(methodOverride('_method')); 
 
 app.use(expressLayout);
 app.set('layout','./layouts/main');

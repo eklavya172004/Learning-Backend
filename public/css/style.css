@@ -1,0 +1,681 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --black: #1c1c1c;
+  --gray: #7E7E7E;
+  --gray-light: #E4E4E4;
+  --red: #b30000;
+  --font-size-base: 1rem;
+  --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+  --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
+  --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+  --border-radius: 10px;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  font-size: var(--font-size-base);
+  background-color: #FAF5EE;
+  /* background-image: url("/img/img-noise-361x370.png"); */
+  margin: 0;
+}
+
+a {
+  color: var(--black);
+}
+
+h1 {
+  font-size: var(--font-size-xl);
+}
+
+h2 {
+  font-size: var(--font-size-lg);
+}
+
+h3 {
+  font-size: var(--font-size-md);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+select,
+textarea {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 10px 15px; /* Add padding for button */
+  border: 2px solid transparent; /* Default border */
+  border-radius: 25px; /* Rounded borders */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s, color 0.3s, border 0.3s; /* Transition effects */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+.edit-btn {
+  background-color: black; /* Background color */
+  color: white; /* Text color */
+}
+
+.edit-btn:hover {
+  background-color: white; /* Change background on hover */
+  color: black; /* Change text color on hover */
+  border: 2px solid black; /* Border on hover */
+}
+
+/* Delete button styles */
+.delete-btn {
+  background-color: grey; /* Background color */
+  color: white; /* Text color */
+  /* font-size: px; */
+}
+
+.delete-btn:hover {
+  background-color: white; /* Change background on hover */
+  color: grey; /* Change text color on hover */
+  border: 2px solid grey; /* Border on hover */
+}
+
+/* Back button styles */
+.btn:not(.delete-btn):not(.edit-btn) {
+  background-color: black; /* Background color */
+  color: white; /* Text color */
+}
+
+.btn:not(.delete-btn):not(.edit-btn):hover {
+  background-color: white; /* Change background on hover */
+  color: black; /* Change text color on hover */
+  border: 2px solid black; /* Border on hover */
+}
+/* .btn-delete {
+  padding: 10px 16px;
+  background-color: var(--red);
+} */
+
+img {
+  width: 50%;
+  height: auto;
+}
+
+/* Layout */
+
+.container {
+  padding: 20px; /* Padding around the content */
+  /* background-color: white; */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Content paragraph styling */
+.container p {
+  font-size: 1.2rem; /* Slightly larger text for content */
+  color: #444; 
+  line-height: 1.6; /* Line height for readability */
+}
+.main {
+  padding: 20px 0;
+}
+
+/* Hero Section */
+
+.heading{
+  font-size: 30px;
+}
+
+.hero-image {
+  max-height: 528px;
+  filter: drop-shadow(0px 44px 34px rgba(0, 0, 0, 0.25));
+  overflow: hidden;
+  border-radius: var(--border-radius);
+}
+
+/* Main Header */
+
+.header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+  "logo button"
+  "menu menu";
+  padding-top: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 
+    "logo menu button";
+  }
+}
+
+.header__logo {
+  font-weight: 800;
+  font-size: 25px;
+  text-decoration: none;
+  grid-area: logo;
+}
+
+.header__logo:hover {
+  text-decoration: none;
+}
+
+.header__nav {
+  justify-content:center;
+  display: flex;
+  margin-left: 20px;
+  align-items: center;
+  grid-area: menu;
+}
+
+.header__logo, .header__nav, .header__button {
+  width: 100%;
+}
+
+.header__button {
+  display: flex;
+  justify-content:end;
+  grid-area: button;
+  gap:5px
+}
+
+.header__button button {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  border: 0;
+  padding: 6px 12px;
+  background: none;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--black);
+}
+
+/* .header__button button:hover {
+  border: 2px solid var(--black);
+} */
+
+/* Header -> Navigation */
+
+.header__nav ul {
+  list-style-type: none;
+  display: flex;
+  gap: 4rem;
+  font-weight: 700;
+  font-size: 20px;
+  padding-left: 0px;
+  margin-left: 50px;
+  /* justify-content: center; */
+}
+
+.header__nav ul a {
+  padding: 10px;
+  text-decoration: none;
+}
+
+.header__nav ul a.active {
+  color: #7E7E7E;
+}
+
+.header__nav ul a:hover {
+  text-decoration: none;
+}
+
+/* Author - HomePage */
+
+.author {
+  padding: 10px 0;
+  text-align: center;
+  margin: 100px;
+}
+
+.author__heading {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.author__body {
+  font-size: var(--font-size-md);
+  margin: 5px 0 40px 0;
+}
+
+/* Home Article List */
+
+.articles__heading {
+  margin-top: 4rem;
+  font-weight: 400;
+}
+
+.article-ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.article-list__date {
+  font-size: 1rem;
+  color: var(--gray);
+  display: inline-block;
+  width: 260px;
+}
+
+.article-ul li a {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  margin: 18px 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .article-ul li a {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .article-list__date {
+    text-align: right;
+  }
+}
+
+.article-ul li {
+  font-size: 24px;
+  cursor: pointer;
+  transition: filter 0.1s;
+}
+
+.article-ul li:not(:last-child) {
+  border-bottom: 1px solid var(--gray-light);
+}
+
+.article-ul li:hover {
+  filter: none;
+}
+
+.article-ul:hover li {
+  filter: blur(3px);
+}
+
+.article-ul:hover li:hover {
+  filter: none;
+}
+
+.article {
+  white-space: pre-wrap;
+}
+
+/* Footer */
+
+.footer {
+  margin: 4rem;
+  text-align: center;
+}
+
+/* Dashboard Admin */
+
+.admin-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-posts {
+  padding: 0;
+  margin: 0;
+}
+
+.admin-post-controls form {
+  display: inline-block;
+}
+
+.admin-post-controls .btn  {
+  display: inline-block;
+  background-color: var(--black);
+  color: var(--gray-light);
+  border: 0;
+  text-decoration: none;
+  font-size: .8rem;
+  padding: 4px 8px;
+  line-height: 2;
+}
+
+.admin-posts li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+/* SeachBar */
+
+.searchBar {
+  visibility: hidden;
+  transform: translateY(-100px);
+  background-color: var(--black);
+  padding: 4px 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.searchBar.open {
+  transform: translateY(0);
+  transition: transform 0.1s;
+}
+
+.searchBar input {
+  margin: 0;
+  border: 0;
+}
+
+#searchClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--gray-light);
+  padding: 15px;
+}
+
+.pagination {
+  font-size: 1.3rem;
+  color: var(--gray);
+  text-decoration: none;
+  margin-top: 40px;
+  display: inline-block;
+}
+
+.pagination:hover {
+  color: var(--black);
+}
+
+.add-button {
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: white;
+  color: black;
+  border-color: black;
+  transform: scale(1.05);
+}
+
+.show-blogs-button {
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  color: #333;
+  font-weight: bold;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+}
+
+.show-blogs-button:hover {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+  transform: scale(1.05);
+}
+/* .container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+} */
+.post {
+  background: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.post h2 {
+  margin: 0 0 10px;
+}
+.post p {
+  line-height: 1.6;
+}
+.post .date {
+  color: #777;
+  font-size: 0.9em;
+}
+.headerPost{
+  /* background: #fff; Set background to white */
+  color: #333; /* Dark text for contrast */
+  padding: 2px 0; /* Reduced padding for a smaller header */
+  text-align: center;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); Added shadow effect */
+  font-size: 1.2em; /* Slightly smaller font size */
+}
+@media (max-width: 768px) {
+  .headerPost {
+      font-size: 1.2em; /* Smaller font size for mobile */
+      padding: 8px 0; /* Adjust padding for smaller screens */
+  }
+
+  .post {
+      padding: 10px; /* Adjust padding for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .headerPost {
+      font-size: 1em; /* Even smaller font size for very small screens */
+      padding: 5px 0; /* Further adjust padding */
+  }
+
+  .post {
+      padding: 8px; /* Adjust post padding for very small screens */
+  }
+}
+/* Left section styles */
+.left {
+  font-size: 0.9em; /* Smaller font size */
+  color: #333; /* Dark text for contrast */
+}
+
+/* Right section styles */
+.right {
+  font-size: 0.9em; /* Smaller font size */
+}
+
+/* Link styles */
+.right a {
+  text-decoration: none; /* Remove underline */
+  color: #007bff; /* Link color */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.right a:hover {
+  color: #0056b3; /* Darker color on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .footer {
+      flex-direction: column; /* Stack items vertically on small screens */
+      align-items: flex-start; /* Align items to the left */
+      text-align: center; /* Center text */
+  }
+
+  .right {
+      margin-top: 10px; /* Add space between sections */
+  }
+}
+label {
+  display: block;
+  margin: 10px 0 5px;
+}
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button {
+  padding: 10px 15px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #0056b3;
+}
+
+.date {
+  font-size: 1rem; /* Medium font size */
+  color: #777; /* Light grey text color */
+  margin-top: 5px; /* Space above date */
+}
+header h1 {
+  text-align: center;
+  padding: 5px;
+  font-size: 2.5rem; /* Large font size */
+  color: #333; /* Dark grey text color */
+  margin: 0; /* Remove default margin */
+}
+
+
+.post-content {
+  background-color: #f9f9f9; /* Light background for content */
+  padding: 20px; /* Add some padding for elegance */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  max-width: 800px; /* Max width for better readability */
+  margin: 20px auto; /* Center the content */
+}
+
+.button-container {
+  display: flex; /* Align buttons in a row */
+  justify-content: space-around; /* Even spacing */
+  margin-bottom: 20px; /* Space below buttons */
+}
+
+.button {
+  display: inline-block; /* Make them block level */
+  padding: 10px 20px; /* Size of the buttons */
+  text-decoration: none; /* Remove underline */
+  color: #fff; /* Text color */
+  font-weight: bold; /* Bold text */
+  border-radius: 5px; /* Rounded corners for buttons */
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.edit-button {
+  background-color: #4CAF50; /* Green for edit */
+}
+
+/* .delete-button {
+  background-color: #f44336; /* Red for delete */
+ 
+
+.back-button {
+  background-color: #2196F3; /* Blue for back */
+}
+
+.button:hover {
+  opacity: 0.8; /* Slightly dim the button on hover */
+}
+
+.btn-base {
+  padding: 10px 15px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific button styles */
+.edit-btn {
+  @apply btn-base;
+  background-color: black;
+  color: white;
+}
+.edit-btn:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .headerPost {
+      font-size: 1.2em; 
+  }
+}
+
+
+.auth-button {
+  text-decoration: none;
+  padding: 8px 15px;
+  color: #333;
+  font-weight: 500;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.auth-button:hover {
+  background-color: #e0e0e0;
+}
+
+.signup-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.signup-button:hover {
+  background-color: #0056b3;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #333;
+  border-radius: 5px;
+}
+
+.pagination a.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}

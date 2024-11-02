@@ -1,0 +1,17 @@
+<header class="post-header">
+    <h1 class="post-title"><%= post.title %></h1>
+    <p class="date">Created on: <%= post.UpdatedAt.toLocaleString() %></p>
+</header>
+<div class="container">
+    <p><%= post.content %></p>
+</div>
+
+<div class="post-actions">
+    <% if (post.createdBy && user && post.createdBy.toString() === user._id.toString())  { %>
+    <a href="/blog/update/<%= post._id %>" class="btn btn-edit">Edit</a>
+    <form action="/blog/delete/<%= post._id %>" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-delete">Delete</button>
+    </form>
+    <% } %>
+    <a href="/blog" class="btn btn-back">Back to Posts</a>
+</div>

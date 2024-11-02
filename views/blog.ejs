@@ -1,0 +1,68 @@
+<header class="headerPost">
+   <h1> Posts </h1>  
+</header>
+<div class="container">
+    <% if (posts.length > 0) { %>
+        <% posts.forEach(post => { %>
+            <div class="post">
+                <a href="/post/<%=post._id%>" style="text-decoration: none;">
+                <h2><%= post.title %></h2>
+                <p class="date">Created on: <%= post.UpdatedAt.toLocaleString() %></p>
+                <p><%= post.content %></p></a>
+                <div class="post-buttons">
+                    <!-- <a href="/blog/update/" class="btn edit-btn">Edit</a>
+                    <form action="/blog/delete/" method="POST" style="display:inline;">
+                        <button type="submit" class="btn delete-btn">Delete</button>
+                    </form> -->
+                    <button onclick="likePost('<%= post._id %>')" class="btn like-btn">
+                        Like (<span id="like-count-<%= post._id %>"><%= post.likes || 0 %></span>)
+                    </button>
+                </div>
+
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No posts found.</p>
+    <% } %>
+</div>
+<div class="pagination">
+    <% if(currentPage>1){ %>
+        <a href="/blog?page=<%= currentPage - 1 %>">Previous</a>
+        <% } %>
+
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="/blog?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+        <% } %>
+            
+        <% if (currentPage < totalPages) { %>
+            <a href="/blog?page=<%= currentPage + 1 %>">Next</a>
+        <% } %>
+</div>
+<script>
+    async function likePost(postId) {
+        try {
+            const response = await fetch(`/blog/${postId}/like`,{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.redirected) {
+            // If the server responded with a redirect, change the location
+                window.location.href = response.url;
+            }else if(response.ok) {
+                const data = await response.json();
+
+                document.getElementById(`like-count-${postId}`).textContent = data.likes;
+            }
+            else{
+                const errorData = await response.json();
+                // console.log('failed to like post');
+                alert(errorData.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>

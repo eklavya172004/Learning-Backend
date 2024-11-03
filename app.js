@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 
 
-const port = 5000 || process.env.PORT 
+const port = process.env.PORT || 5000 
 
 //connect to db
 connectDB();

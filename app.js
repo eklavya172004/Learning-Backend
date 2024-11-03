@@ -13,12 +13,14 @@ const jwt = require('jsonwebtoken');
 const app = express();
 
 
-const port = 5000 || process.env.PORT 
+const port = process.env.PORT || 5000  
 
 //connect to db
 connectDB();
 
 app.use(express.static(path.join(__dirname, 'public')));
+// app.get('/favicon.ico', (req, res) => res.status(204)); // Respond with no content
+
 //templating engine
 
 app.use(express.json()); // For parsing application/json

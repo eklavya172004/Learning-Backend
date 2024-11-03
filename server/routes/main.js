@@ -4,7 +4,7 @@ const Post = require('./../models/post');
 const auth = require('./../../authController/authentication');
 const likeControl = require('./../models/features');
 
-router.get('',(req,res) => {
+router.get('/',(req,res) => {
     const locals = {
         title: "CRUD App",
         description: "A simple CRUD application using Express and MongoDB",

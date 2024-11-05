@@ -9,13 +9,14 @@ exports.like = async(req, res,next) => {
         
         if(!blog) return res.status(404).send('Blog post not found');
 
+        console.log(req.session.user.id);
         //checking if user has already liked the blog
-        if(blog.likedBy.includes(req.session.user._id)){
+        if(blog.likedBy.includes(req.session.user.id)){
             return res.status(400).json({message: 'You have already liked this blog'});
         }
     
         blog.likes++;
-        blog.likedBy.push(req.session.user._id);
+        blog.likedBy.push(req.session.user.id);
         await blog.save();
         
         res.status(200).json({message: 'blog is liked', likes: blog.likes});

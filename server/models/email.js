@@ -12,7 +12,7 @@ const sendmail = async options => {
         },
     })
 
-
+    console.log(process.env.EMAIL_USER);
     const mailOptions = {
         from: 'eklavyanath1704@gmail.com',
         to:options.email,

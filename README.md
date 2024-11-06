@@ -1,8 +1,27 @@
-Project Overview
-I’ve developed a full-stack web application using Node.js, Express.js, and MongoDB that serves as a platform for users to share blogs and thoughts with others. Here are the key features:
+# Blogging Website
 
-User Authentication: Complete authentication system, including user registration, login, and password management.
+A full-featured blogging platform built with Node.js, Express.js, MongoDB, and EJS, allowing users to create, edit, and manage blog posts in a secure environment.
 
-Blog Creation & Sharing: Authenticated users can create, edit, and share their blogs, fostering a community of shared insights and experiences.
+Features
+- User Authentication: Users must sign up and log in to create or interact with posts.
+- Create and Manage Posts: Users can create blog posts with a title and description.
+  - Users can edit and delete only their own posts.
+- Like System: Registered users can like any post, but each user can only like a post once.
+- Password Management:
+  - **Forgot Password**: Users can reset their password via an email token. After receiving the token, they can enter it on the reset page to set a new password.
+  - Update Password: Logged-in users can update their password directly from their profile.
+  
+Technologies Used
+- Node.js and Express.js for server-side logic and API development
+- MongoDB for data storage and management
+- EJS for rendering dynamic templates on the frontend
+- CSS for styling
 
-Secure Data Handling: All user information and content are securely managed with MongoDB.
+Future Enhancements
+- Comment System : Enable comments on posts for better engagement.
+- User Profiles: Allow users to view their posts and profile details.
+- Categories and Tags: Organize posts by topics or tags for easier browsing.
+
+---
+
+This README highlights the core functionalities and security features of your platform. Let me know if you’d like any further adjustments!
